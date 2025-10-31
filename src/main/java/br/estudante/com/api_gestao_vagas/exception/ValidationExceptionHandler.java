@@ -1,6 +1,7 @@
 package br.estudante.com.api_gestao_vagas.exception;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.List;
@@ -19,5 +20,13 @@ public class ValidationExceptionHandler {
                 .toList();
 
         return ResponseEntity.badRequest().body(errors);
+    }
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<?> handleMissingParams(MissingServletRequestParameterException ex) {
+        Map<String, String> error = Map.of(
+                "field", ex.getParameterName(),
+                "message", "Parâmetro obrigatório não informado"
+        );
+        return ResponseEntity.badRequest().body(List.of(error));
     }
 }
