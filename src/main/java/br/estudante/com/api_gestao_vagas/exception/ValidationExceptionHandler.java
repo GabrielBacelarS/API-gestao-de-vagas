@@ -21,6 +21,7 @@ public class ValidationExceptionHandler {
 
         return ResponseEntity.badRequest().body(errors);
     }
+
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ResponseEntity<?> handleMissingParams(MissingServletRequestParameterException ex) {
         Map<String, String> error = Map.of(
@@ -29,4 +30,15 @@ public class ValidationExceptionHandler {
         );
         return ResponseEntity.badRequest().body(List.of(error));
     }
+
+//    @ExceptionHandler(NullPointerException.class)
+//    public ResponseEntity<?> handleNullPointer(NullPointerException ex) {
+//        Map<String, String> error = Map.of(
+//                "field", ex.getClass().getSimpleName(),
+//                "message", "Parâmetro obrigatório não informado"
+//        );
+//        return ResponseEntity.badRequest().body(List.of(error));
+//    }
+
 }
+
