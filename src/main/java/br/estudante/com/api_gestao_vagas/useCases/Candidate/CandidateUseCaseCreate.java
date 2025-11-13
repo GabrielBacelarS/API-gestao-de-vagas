@@ -5,6 +5,7 @@ import br.estudante.com.api_gestao_vagas.modules.CandidateModel;
 import br.estudante.com.api_gestao_vagas.repository.CandidateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -13,10 +14,14 @@ import java.time.LocalDateTime;
 public class CandidateUseCaseCreate {
     @Autowired
     private CandidateRepository candidateRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public ResponseEntity<MessagerReturnDTO> executeCreate(CandidateModel candidate) {
         CandidateModel userExist = candidateRepository.findByUsernameOrEmail(candidate.getUsername(), candidate.getEmail());
         if (userExist == (null)) {
+            var password = passwordEncoder.encode(candidate.getPassword());
+            candidate.setPassword(password);
             candidateRepository.save(candidate);
             return ResponseEntity.status(201).body(new MessagerReturnDTO(true, "Usuario criado com sucesso! Bem vindo(a) " + candidate.getName(),LocalDateTime.now()));
         } else {

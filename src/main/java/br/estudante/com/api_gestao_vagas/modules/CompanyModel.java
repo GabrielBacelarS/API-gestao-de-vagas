@@ -32,7 +32,7 @@ public class CompanyModel {
     private String email;
 
     @NotBlank(message = "A senha não pode esta vazia, e não deve conter espacos")
-    @Length(min = 8, max = 20, message = "A senha deve conter entre 8 a 20 strings")
+    @Length(min = 8, max = 71, message = "A senha deve conter entre 8 a 20 strings")
     private String password;
 
     @Length(min = 8, max = 200, message = "A descrição deve conter ate 200 charcters e ao menos 8")
