@@ -14,7 +14,7 @@ public class DeleteCandidateDto {
 
     @Getter
     @NotBlank(message = "A senha não pode esta vazia, e não deve conter espacos")
-    @Length(min = 8, max = 20, message =  "A senha deve conter entre 8 a 20 strings")
+    @Length(min = 8, max = 71, message =  "A senha deve conter entre 8 a 20 strings")
     private String password;
 
 }

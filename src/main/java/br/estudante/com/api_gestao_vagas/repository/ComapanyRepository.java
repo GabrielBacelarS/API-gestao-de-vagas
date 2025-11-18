@@ -9,4 +9,5 @@ import java.util.UUID;
 public interface ComapanyRepository extends JpaRepository<CompanyModel, UUID> {
     CompanyModel findByUsernameOrEmail(String userName, String email);
     Optional<CompanyModel> findById(UUID id);
+    Optional<CompanyModel> findByUsername(String userName);
 }
