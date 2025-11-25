@@ -13,6 +13,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Service
@@ -38,6 +40,8 @@ public class AuthCompanyUseCase {
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
         String token = JWT.create().withIssuer("api-gestao-vagas")
                 .withSubject(isExist.getId().toString())
+                .withClaim("roles", "COMPANY")
+                .withExpiresAt(Instant.now().plus(Duration.ofHours(2)))
                 .sign(algorithm);
                 return  ResponseEntity.status(200).body(new MessagerReturnDTO(true,token,LocalDateTime.now()));
 
